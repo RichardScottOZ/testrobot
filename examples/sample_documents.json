@@ -1,0 +1,73 @@
+[
+  {
+    "id": "doc_001",
+    "text": "Introduction to Deep Learning: Deep learning is a subset of machine learning that uses neural networks with multiple layers to learn hierarchical representations of data.",
+    "image": "example_images/neural_network.jpg",
+    "bboxes": [[50, 100, 700, 80], [50, 200, 700, 150]],
+    "image_width": 800,
+    "image_height": 600,
+    "ocr_text": "Deep Learning Neural Networks Introduction",
+    "elements": [
+      {"type": "heading", "order": 0, "level": 0},
+      {"type": "paragraph", "order": 1, "level": 1}
+    ]
+  },
+  {
+    "id": "doc_002",
+    "text": "Computer Vision Applications: Computer vision enables machines to interpret and understand visual information from the world, including object detection, image segmentation, and facial recognition.",
+    "image": "example_images/computer_vision.jpg",
+    "bboxes": [[60, 120, 680, 90], [60, 230, 680, 180]],
+    "image_width": 800,
+    "image_height": 600,
+    "ocr_text": "Computer Vision Object Detection Image Segmentation",
+    "elements": [
+      {"type": "heading", "order": 0, "level": 0},
+      {"type": "paragraph", "order": 1, "level": 1},
+      {"type": "list", "order": 2, "level": 1}
+    ]
+  },
+  {
+    "id": "doc_003",
+    "text": "Natural Language Processing: NLP focuses on enabling computers to understand, interpret, and generate human language. Key tasks include sentiment analysis, machine translation, and text summarization.",
+    "image": "example_images/nlp_diagram.jpg",
+    "bboxes": [[40, 90, 720, 100], [40, 210, 720, 200]],
+    "image_width": 800,
+    "image_height": 600,
+    "ocr_text": "NLP Natural Language Processing Text Analysis",
+    "elements": [
+      {"type": "heading", "order": 0, "level": 0},
+      {"type": "paragraph", "order": 1, "level": 1},
+      {"type": "caption", "order": 2, "level": 2}
+    ]
+  },
+  {
+    "id": "doc_004",
+    "text": "Multimodal Learning: Multimodal learning combines information from multiple sources such as text, images, audio, and video to create more comprehensive representations of data.",
+    "image": "example_images/multimodal.jpg",
+    "bboxes": [[55, 110, 690, 85], [55, 220, 690, 160], [55, 400, 690, 100]],
+    "image_width": 800,
+    "image_height": 600,
+    "ocr_text": "Multimodal Learning Text Image Audio Video Integration",
+    "elements": [
+      {"type": "heading", "order": 0, "level": 0},
+      {"type": "paragraph", "order": 1, "level": 1},
+      {"type": "figure", "order": 2, "level": 1},
+      {"type": "caption", "order": 3, "level": 2}
+    ]
+  },
+  {
+    "id": "doc_005",
+    "text": "Document Understanding: Advanced document understanding systems can extract and comprehend information from complex documents including layout, text, images, and structural elements.",
+    "image": "example_images/document_layout.jpg",
+    "bboxes": [[45, 95, 710, 95], [45, 205, 710, 170], [45, 390, 350, 150], [405, 390, 350, 150]],
+    "image_width": 800,
+    "image_height": 600,
+    "ocr_text": "Document Understanding Layout Analysis OCR Text Extraction",
+    "elements": [
+      {"type": "heading", "order": 0, "level": 0},
+      {"type": "paragraph", "order": 1, "level": 1},
+      {"type": "table", "order": 2, "level": 1},
+      {"type": "caption", "order": 3, "level": 2}
+    ]
+  }
+]
