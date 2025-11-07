@@ -249,6 +249,7 @@ class GPURasterClustering:
             indices = torch.randperm(n_samples)[:n_clusters]
             centroids = X[indices].clone()
             
+            iteration = 0
             for iteration in range(max_iter):
                 # Compute distances to centroids
                 distances = torch.cdist(X, centroids)
@@ -363,7 +364,7 @@ class GPURasterClustering:
             return labels_raster, model
             
         except ImportError as e:
-            print(f"Error: CuPy not available. Install with: pip install cupy-cuda12x")
+            print(f"Error: CuPy not available. Install with: pip install cupy-cuda11x (for CUDA 11.x) or cupy-cuda12x (for CUDA 12.x)")
             print(f"Details: {e}")
             return None, None
     

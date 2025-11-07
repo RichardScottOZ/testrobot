@@ -274,6 +274,9 @@ def create_rgb_composite_with_clusters(raster_stack: np.ndarray,
 def main():
     """
     Demonstration of visualization functions.
+    
+    Note: Import is inside main() to avoid circular import issues.
+    This function is only called when running visualization.py directly.
     """
     from gpu_clustering_raster import GPURasterClustering, create_synthetic_raster_stack
     
