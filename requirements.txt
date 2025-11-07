@@ -1,0 +1,37 @@
+# GPU-Accelerated Clustering Requirements
+# For raster stack clustering with shape (99, 2000, 4000)
+
+# Core dependencies
+numpy>=1.21.0
+
+# GPU Computing Libraries
+# Note: Choose CUDA version based on your system (cuda11x or cuda12x)
+
+# RAPIDS cuML - GPU-accelerated machine learning (Methods 1, 2, 3)
+# Install via conda: conda install -c rapidsai -c conda-forge -c nvidia cuml
+# Or specify version for pip (requires CUDA toolkit):
+# cuml-cu11>=23.0.0  # For CUDA 11.x
+# cuml-cu12>=23.0.0  # For CUDA 12.x
+
+# PyTorch - Deep learning framework (Method 4)
+torch>=2.0.0
+# For GPU support, install with:
+# pip install torch --index-url https://download.pytorch.org/whl/cu118  # CUDA 11.8
+# pip install torch --index-url https://download.pytorch.org/whl/cu121  # CUDA 12.1
+
+# CuPy - NumPy-compatible array library for GPU (Method 5)
+# cupy-cuda11x>=12.0.0  # For CUDA 11.x
+# cupy-cuda12x>=12.0.0  # For CUDA 12.x
+
+# Faiss - Similarity search and clustering (Method 6)
+faiss-gpu>=1.7.4
+
+# Optional but recommended
+matplotlib>=3.5.0  # For visualization
+scikit-learn>=1.0.0  # For comparison with CPU methods
+rasterio>=1.3.0  # For real raster I/O
+gdal>=3.4.0  # For geospatial raster processing
+
+# Development and testing
+pytest>=7.0.0
+pytest-cov>=3.0.0
