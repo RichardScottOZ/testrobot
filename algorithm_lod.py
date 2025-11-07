@@ -253,9 +253,14 @@ class LODVisualizationAlgorithm(BaseVisualizationAlgorithm):
             else:  # LOW
                 keep_ratio = min(1.0, max_distance / (4 * distance + 1))
             
-            # Deterministic sampling based on drillhole id
-            if drillhole.id is None or np.random.random() < keep_ratio:
+            # Deterministic sampling based on drillhole id hash
+            if drillhole.id is None:
                 filtered.append(drillhole)
+            else:
+                # Use hash of ID for deterministic pseudo-random value in [0, 1)
+                hash_value = (hash(drillhole.id) & 0xFFFFFFFF) / 0xFFFFFFFF
+                if hash_value < keep_ratio:
+                    filtered.append(drillhole)
         
         return filtered
     
