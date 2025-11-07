@@ -63,8 +63,9 @@ class DocumentPreprocessor:
         # Simple word-level tokenization (in practice, use proper tokenizer)
         tokens = text.lower().split()[:max_length]
         
-        # Convert to IDs (simplified - use proper vocabulary)
-        token_ids = [hash(token) % 50000 for token in tokens]
+        # Convert to IDs (simplified - use deterministic mapping)
+        # NOTE: In production, use a proper vocabulary/tokenizer
+        token_ids = [abs(sum(ord(c) for c in token)) % 50000 for token in tokens]
         
         # Pad
         padding_length = max_length - len(token_ids)

@@ -149,7 +149,7 @@ def collate_multimodal(batch):
                 # Multi-dimensional - assume already properly sized or handle case by case
                 try:
                     batched[key] = torch.cat(values, dim=0)
-                except:
+                except (RuntimeError, ValueError):
                     batched[key] = torch.stack(values)
     
     return batched
@@ -203,9 +203,19 @@ class Trainer:
             self.optimizer.zero_grad()
             embeddings = self.model(**batch)
             
-            # Compute loss (simplified - assumes contrastive setup)
-            # In practice, you'd need proper positive/negative sampling
-            loss = self.loss_fn(embeddings, embeddings)
+            # Compute loss
+            # NOTE: This is a simplified training loop. In production:
+            # - Use proper positive/negative sampling
+            # - Create augmented views or use labeled pairs
+            # - Implement batch construction for contrastive learning
+            # For now, we compute loss between first and second half of batch
+            batch_size = embeddings.size(0)
+            if batch_size >= 2:
+                mid = batch_size // 2
+                loss = self.loss_fn(embeddings[:mid], embeddings[mid:2*mid])
+            else:
+                # Skip if batch too small
+                continue
             
             # Backward pass
             loss.backward()
@@ -236,7 +246,14 @@ class Trainer:
                         for k, v in batch.items()}
                 
                 embeddings = self.model(**batch)
-                loss = self.loss_fn(embeddings, embeddings)
+                
+                # Same approach as training for consistency
+                batch_size = embeddings.size(0)
+                if batch_size >= 2:
+                    mid = batch_size // 2
+                    loss = self.loss_fn(embeddings[:mid], embeddings[mid:2*mid])
+                else:
+                    continue
                 
                 total_loss += loss.item()
                 num_batches += 1

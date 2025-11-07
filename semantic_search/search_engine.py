@@ -97,6 +97,12 @@ class SemanticSearchEngine:
         # Concatenate all embeddings
         all_embeddings = np.concatenate(embeddings, axis=0)
         
+        # Verify consistency
+        if len(all_embeddings) != len(documents):
+            raise ValueError(
+                f"Embedding count ({len(all_embeddings)}) doesn't match document count ({len(documents)})"
+            )
+        
         # Add to FAISS index
         if self.index_type == 'ivf' and not self.index.is_trained:
             # Train IVF index if not trained
@@ -104,7 +110,7 @@ class SemanticSearchEngine:
         
         self.index.add(all_embeddings)
         
-        # Store documents and embeddings
+        # Store documents and embeddings (maintain consistency)
         self.documents.extend(documents)
         self.document_embeddings.append(all_embeddings)
     

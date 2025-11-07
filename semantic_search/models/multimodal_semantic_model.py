@@ -210,17 +210,24 @@ class MultimodalSemanticModel(nn.Module):
         elif self.fusion_type == 'gated':
             # Gated fusion
             gates = []
-            for i, (emb, gate_net) in enumerate(zip(embeddings, self.modality_gates)):
-                gate = gate_net(emb)
-                gates.append(gate)
+            # Only use gates for available embeddings
+            num_embeddings = len(embeddings)
+            for i, emb in enumerate(embeddings):
+                if i < len(self.modality_gates):
+                    gate = self.modality_gates[i](emb)
+                    gates.append(gate)
             
-            # Normalize gates
-            gates = torch.stack(gates, dim=1)  # [batch_size, num_modalities, 1]
-            gates = torch.softmax(gates, dim=1)
-            
-            # Weight and sum embeddings
-            stacked = torch.stack(embeddings, dim=1)  # [batch_size, num_modalities, embedding_dim]
-            fused = (stacked * gates).sum(dim=1)
+            if gates:
+                # Normalize gates
+                gates = torch.stack(gates, dim=1)  # [batch_size, num_modalities, 1]
+                gates = torch.softmax(gates, dim=1)
+                
+                # Weight and sum embeddings
+                stacked = torch.stack(embeddings[:len(gates[0])], dim=1)  # [batch_size, num_modalities, embedding_dim]
+                fused = (stacked * gates).sum(dim=1)
+            else:
+                # Fallback to mean if no gates available
+                fused = torch.stack(embeddings, dim=0).mean(dim=0)
         
         return fused
     
