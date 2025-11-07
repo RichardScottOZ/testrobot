@@ -53,6 +53,11 @@ class DocumentPreprocessor:
         """
         Preprocess text into token IDs.
         
+        NOTE: This is a simplified tokenization for demonstration purposes.
+        For production use, replace with a proper tokenizer from the 
+        transformers library (e.g., BertTokenizer, GPT2Tokenizer) with
+        a real vocabulary for meaningful semantic representations.
+        
         Args:
             text: Input text string
             max_length: Maximum sequence length
@@ -63,8 +68,8 @@ class DocumentPreprocessor:
         # Simple word-level tokenization (in practice, use proper tokenizer)
         tokens = text.lower().split()[:max_length]
         
-        # Convert to IDs (simplified - use deterministic mapping)
-        # NOTE: In production, use a proper vocabulary/tokenizer
+        # Convert to IDs using deterministic character-based mapping
+        # PRODUCTION TODO: Replace with proper vocabulary/tokenizer
         token_ids = [abs(sum(ord(c) for c in token)) % 50000 for token in tokens]
         
         # Pad

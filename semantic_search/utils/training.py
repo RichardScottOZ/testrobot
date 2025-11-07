@@ -184,6 +184,13 @@ class Trainer:
         """
         Train for one epoch.
         
+        NOTE: This is a simplified training loop for demonstration.
+        For production contrastive learning:
+        - Implement proper positive/negative pair sampling
+        - Use data augmentation to create multiple views
+        - Consider using InfoNCE, SimCLR, or CLIP-style losses
+        - Implement hard negative mining
+        
         Args:
             dataloader: Training data loader
             
@@ -203,12 +210,8 @@ class Trainer:
             self.optimizer.zero_grad()
             embeddings = self.model(**batch)
             
-            # Compute loss
-            # NOTE: This is a simplified training loop. In production:
-            # - Use proper positive/negative sampling
-            # - Create augmented views or use labeled pairs
-            # - Implement batch construction for contrastive learning
-            # For now, we compute loss between first and second half of batch
+            # Compute loss - simplified approach splitting batch in half
+            # PRODUCTION TODO: Implement proper positive/negative sampling
             batch_size = embeddings.size(0)
             if batch_size >= 2:
                 mid = batch_size // 2

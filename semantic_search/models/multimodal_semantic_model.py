@@ -219,11 +219,12 @@ class MultimodalSemanticModel(nn.Module):
             
             if gates:
                 # Normalize gates
-                gates = torch.stack(gates, dim=1)  # [batch_size, num_modalities, 1]
+                gates = torch.stack(gates, dim=1)  # [batch_size, num_available_modalities, 1]
                 gates = torch.softmax(gates, dim=1)
                 
-                # Weight and sum embeddings
-                stacked = torch.stack(embeddings[:len(gates[0])], dim=1)  # [batch_size, num_modalities, embedding_dim]
+                # Weight and sum embeddings (use only available ones)
+                num_gated = len(gates)  # Number of gates created
+                stacked = torch.stack(embeddings[:num_gated], dim=1)  # [batch_size, num_available_modalities, embedding_dim]
                 fused = (stacked * gates).sum(dim=1)
             else:
                 # Fallback to mean if no gates available
